@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Form, useForm } from 'react-hook-form';
 import { UserContext } from '../useContext/userContext';
 import { User } from '../types/user';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,11 +18,13 @@ export const Register = () => {
     try {
       await signUp(data);
       reset();
+
+      navigate('/login');
     } catch (error) {
       throw new Error('Error signing up');
     }
   };
-  console.log(errors);
+
   return (
     <div className="bg-white">
       <div className="flex h-screen flex-col items-center justify-center">

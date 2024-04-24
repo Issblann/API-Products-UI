@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { User } from '../types/user';
+import { UserContext } from '../useContext/userContext';
+import { useNavigate } from 'react-router-dom';
+import { set } from 'lodash';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<User, { accessToken: string }>();
+  const { signIn } = useContext(UserContext);
+  const onSubmit = async (data: User) => {
+    try {
+      await signIn(data);
+      reset();
+    } catch (error) {
+      throw new Error('Error signing in');
+    }
+  };
   return (
     <div className="bg-white">
       <div className="flex h-screen flex-col items-center justify-center">
@@ -12,7 +33,7 @@ export const Login = () => {
             </p>
           </div>
 
-          <form className="w-full">
+          <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-10 space-y-3">
               <div className="space-y-1">
                 <div className="space-y-2">
@@ -23,8 +44,13 @@ export const Login = () => {
                     className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="email"
                     placeholder="mail@example.com"
-                    name="email"
+                    {...register('email', { required: 'Email is required' })}
                   />
+                  {errors?.email && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.email?.message as String}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -33,9 +59,17 @@ export const Login = () => {
                   <input
                     className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
+                    type="password"
                     placeholder="*******"
-                    name="password"
+                    {...register('password', {
+                      required: 'Password is required',
+                    })}
                   />
+                  {errors?.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.password?.message as String}
+                    </p>
+                  )}
                 </div>
               </div>
 
