@@ -6,10 +6,9 @@ export const Login = () => {
       <div className="flex h-screen flex-col items-center justify-center">
         <div className="max-h-auto mx-auto max-w-xl">
           <div className="mb-8 space-y-3">
-            <p className="text-xl font-semibold">Login</p>
+            <p className="text-xl font-semibold">Sign in</p>
             <p className="text-gray-500">
-              Enter your email, and we'll send a code to your inbox. <br />
-              No need for passwords -- like magic!
+              Sign in for access to the products. <br />
             </p>
           </div>
 
@@ -27,6 +26,17 @@ export const Login = () => {
                     name="email"
                   />
                 </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Password
+                  </label>
+                  <input
+                    className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    id="password"
+                    placeholder="*******"
+                    name="password"
+                  />
+                </div>
               </div>
 
               <button
@@ -41,13 +51,11 @@ export const Login = () => {
           <div className="text-center">
             No account?
             <a className="text-blue-500" href="/signup">
-              Create one
+              {''} Create one
             </a>
           </div>
         </div>
       </div>
-
-      <h1 className="text-red-950">HOLA</h1>
     </div>
   );
 };
