@@ -1,0 +1,26 @@
+{
+  "name": "api-webui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "env-var": "^7.4.1",
+    "itrm-tools": "^1.0.52",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/lodash": "^4.17.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2"
+  }
+}
