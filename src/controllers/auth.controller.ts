@@ -8,13 +8,14 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) return res.sendStatus(400);
+    if (!email || !password)
+      return res.sendStatus(400).json({ error: 'No email or password' });
 
     const user = await getUserByEmail(email).select(
       '+authentication.tokenJWT +authentication.password'
     );
 
-    if (!user) return res.sendStatus(400);
+    if (!user) return res.sendStatus(400).json({ error: 'User not found' });
 
     const expectedHash = auth(password);
 
@@ -26,15 +27,16 @@ export const loginUser = async (req: Request, res: Response) => {
     user.authentication.tokenJWT = tokenJWT;
 
     await user.save();
+
+    const expiryDate = new Date(Number(new Date()) + 3600 * 1000);
     return res
+      .cookie('access_token', tokenJWT, { httpOnly: true, expires: expiryDate })
       .status(200)
       .header('Authorization', `Bearer ${tokenJWT}`)
       .send({
         id: user.id,
         username: user.username,
         email: user.email,
-        accessToken: tokenJWT,
-        password: user.authentication.password,
       })
       .end();
   } catch (error) {
