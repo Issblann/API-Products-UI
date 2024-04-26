@@ -47,7 +47,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div>
       <div className="flex h-screen flex-col items-center justify-center">
         <div className="max-h-auto mx-auto max-w-xl">
           <div className="mb-8 space-y-3">
@@ -114,7 +114,7 @@ export const Login = () => {
           <div className="text-center">
             No account?
             <a className="text-blue-500" href="/signup">
-              Create one
+              <span></span> Create one
             </a>
           </div>
         </div>

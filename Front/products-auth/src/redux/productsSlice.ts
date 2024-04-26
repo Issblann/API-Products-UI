@@ -51,9 +51,6 @@ export const fetchProducts = createAsyncThunk<FetchProductsPayload>(
         throw new Error('Failed to fetch products');
       }
 
-      console.log(currentPage, 'current page redux');
-
-      console.log(response.data, 'response data redux');
       const products = response.data;
       const totalItems = 70;
       return { products, totalItems };

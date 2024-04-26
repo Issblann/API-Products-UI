@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { auth, random } from '../helpers';
-import { createUser, getUserByEmail, getUserById } from '../models/users';
+import { createUser, getUserByEmail } from '../models/users';
 import jwt from 'jsonwebtoken';
 import { envs } from '../config/envs.plugin';
 
@@ -63,31 +63,5 @@ export const registerUser = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
-  }
-};
-
-export const getUserByIdController = async (req: Request, res: Response) => {
-  const userId = req.params.id;
-  try {
-    const user = await getUserById(userId);
-    if (!user) return res.sendStatus(404).json({ error: 'User not found' });
-
-    const token = jwt.sign({ userId: user._id }, envs.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    res.setHeader('Authorization', `Bearer ${token}`);
-
-    return res.status(200).json({
-      user: {
-        _id: user._id,
-        email: user.email,
-        username: user.username,
-      },
-      token: token,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(500).json({ error: error.message });
   }
 };

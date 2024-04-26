@@ -41,7 +41,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
   const endIndex = page * pageSize;
 
   const paginatedProducts = uniqueProducts.slice(startIndex, endIndex);
-  // const totalPages = Math.ceil(uniqueProducts.length / pageSize);
 
   await ProductModel.insertMany(paginatedProducts);
   try {
