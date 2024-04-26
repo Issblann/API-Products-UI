@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Form, useForm } from 'react-hook-form';
-import { UserContext } from '../useContext/userContext';
 import { User } from '../types/user';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -12,7 +12,20 @@ export const Register = () => {
     formState: { errors },
     reset,
   } = useForm<User>();
-  const { signUp } = useContext(UserContext);
+
+  const signUp = async (user: User) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/auth/register',
+        user
+      );
+      const data = await response.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      throw new Error('Error signing up');
+    }
+  };
 
   const onSubmit = async (data: User) => {
     try {

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { User } from '../types/user';
-import { UserContext } from '../useContext/userContext';
 import { useNavigate } from 'react-router-dom';
-import { set } from 'lodash';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { sinInStart, signInSuccess, signInError } from '../redux/userSlice';
+import { RootState } from '../redux/store';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -13,7 +14,25 @@ export const Login = () => {
     formState: { errors },
     reset,
   } = useForm<User, { accessToken: string }>();
-  const { signIn } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state: RootState) => state.user);
+  const signIn = async (user: User) => {
+    try {
+      dispatch(sinInStart());
+      const response = await axios.post(
+        'http://localhost:8080/auth/login',
+        user
+      );
+      const data = await response.data;
+      dispatch(signInSuccess(data));
+      console.log(data);
+      return data;
+    } catch (error) {
+      dispatch(signInError(error));
+      throw new Error('Error signing in');
+    }
+  };
+
   const onSubmit = async (data: User) => {
     try {
       await signIn(data);
@@ -22,6 +41,7 @@ export const Login = () => {
       throw new Error('Error signing in');
     }
   };
+
   return (
     <div className="bg-white">
       <div className="flex h-screen flex-col items-center justify-center">
@@ -65,9 +85,14 @@ export const Login = () => {
                       required: 'Password is required',
                     })}
                   />
-                  {errors?.password && (
+                  {errors?.password?.message && (
                     <p className="text-red-500 text-xs mt-1">
                       {errors.password?.message as String}
+                    </p>
+                  )}
+                  {error && (
+                    <p className="text-red-500 text-xs mt-1">
+                      password incorrect
                     </p>
                   )}
                 </div>
@@ -85,7 +110,7 @@ export const Login = () => {
           <div className="text-center">
             No account?
             <a className="text-blue-500" href="/signup">
-              {''} Create one
+              Create one
             </a>
           </div>
         </div>

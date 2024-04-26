@@ -16,8 +16,6 @@ export const isAuthenticated = (
   if (!token) {
     return res.status(401).json({ message: `Authorization header missing` });
   }
-  console.log('TOKEN', token);
-  console.log('SECRET KEY', SECRET_KEY);
 
   try {
     const decodedToken = jwt.verify(token, SECRET_KEY);
