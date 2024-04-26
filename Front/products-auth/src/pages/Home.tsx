@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
 
 export const Home = () => {
-  return <div>Home</div>;
+  return <div>Aqui renderizaremos los productos</div>;
 };
