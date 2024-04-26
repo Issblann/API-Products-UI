@@ -9,12 +9,10 @@ export const isAuthenticated = (
   res: Response,
   next: () => void
 ) => {
-  const authHeader = req.headers['authorization'];
-
-  const token = authHeader?.split(' ')[1];
+  const token = req.cookies['access_token'];
 
   if (!token) {
-    return res.status(401).json({ message: `Authorization header missing` });
+    return res.status(401).json({ message: `Authorization cookie missing` });
   }
 
   try {

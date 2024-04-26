@@ -3,6 +3,7 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import router from './router';
 import { envs } from './config/envs.plugin';
 
@@ -15,7 +16,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 const server = http.createServer(app);
 
 server.listen(8080, () => {
