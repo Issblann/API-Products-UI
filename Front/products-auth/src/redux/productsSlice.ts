@@ -41,20 +41,21 @@ export const fetchProducts = createAsyncThunk<FetchProductsPayload>(
     const state = getState() as RootState;
     try {
       const { currentPage } = state.products.pagination;
-      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    
       const response = await axios.get(
-        `http://localhost:8080/api/products?start=${start}&limit=${ITEMS_PER_PAGE}`,
+        `http://localhost:8080/api/products?page=${currentPage}&pageSize=${ITEMS_PER_PAGE}`,
         { withCredentials: true }
       );
 
       if (!response.data) {
         throw new Error('Failed to fetch products');
       }
-      const totalCountHeader = response.headers['x-total-count'];
-      const totalItems = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
 
+      console.log(currentPage, 'current page redux');
+
+      console.log(response.data, 'response data redux');
       const products = response.data;
-
+      const totalItems = 70;
       return { products, totalItems };
     } catch (error) {
       throw new Error('Error getting products redux');

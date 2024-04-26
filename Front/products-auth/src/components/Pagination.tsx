@@ -19,6 +19,8 @@ export const Pagination = () => {
       dispatch(fetchProducts());
     }
   };
+
+  console.log(products.pagination.totalItems, 'total items');
   return (
     <nav aria-label="Page navigation example">
       <ul className="flex items-center -space-x-px h-10 text-base">

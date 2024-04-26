@@ -22,7 +22,7 @@ export const Home = () => {
 
         {products.loading && <p>Loading...</p>}
 
-        {products.data?.map((product) => (
+        {products.data.map((product) => (
           <div key={product.id}>
             {product.title}
             <img
