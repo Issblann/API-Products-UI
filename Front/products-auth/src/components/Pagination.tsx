@@ -49,7 +49,7 @@ export const Pagination = () => {
           </button>
         </li>
         <span className="p-2 dark:bg-gray-800 dark:text-gray-400">
-          Page {products.pagination.currentPage} of
+          Page {products.pagination.currentPage} of <span></span>
           {products.pagination.totalPages}
         </span>
         <li>

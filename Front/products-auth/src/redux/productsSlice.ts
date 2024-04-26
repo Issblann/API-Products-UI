@@ -3,7 +3,7 @@ import { Product } from '../types/product';
 import axios from 'axios';
 import { RootState } from './store';
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 
 interface initialPagination {
   currentPage: number;
@@ -41,7 +41,7 @@ export const fetchProducts = createAsyncThunk<FetchProductsPayload>(
     const state = getState() as RootState;
     try {
       const { currentPage } = state.products.pagination;
-    
+
       const response = await axios.get(
         `http://localhost:8080/api/products?page=${currentPage}&pageSize=${ITEMS_PER_PAGE}`,
         { withCredentials: true }
