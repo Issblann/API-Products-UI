@@ -15,13 +15,16 @@ export const Login = () => {
     reset,
   } = useForm<User, { accessToken: string }>();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.user);
+  const { error } = useSelector((state: RootState) => state.user);
   const signIn = async (user: User) => {
     try {
       dispatch(sinInStart());
       const response = await axios.post(
         'http://localhost:8080/auth/login',
-        user
+        user,
+        {
+          withCredentials: true,
+        }
       );
       const data = await response.data;
       dispatch(signInSuccess(data));
