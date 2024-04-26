@@ -26,6 +26,7 @@ export const Login = () => {
       const data = await response.data;
       dispatch(signInSuccess(data));
       console.log(data);
+      navigate('/');
       return data;
     } catch (error) {
       dispatch(signInError(error));
