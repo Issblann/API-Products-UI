@@ -16,8 +16,8 @@ export const Home = () => {
   console.log(products, 'products home redux');
 
   return (
-    <section className=" h-screen text-slate-100 bg-slate-900">
-      <div className="flex flex-col mx-auto gap-6 w-full p-4 justify-center items-center max-w-7xl">
+    <section className="md:h-screen text-slate-100 bg-slate-900">
+      <div className="flex flex-col md:h-full mx-auto gap-6 w-full p-4 justify-center items-center max-w-7xl">
         <h1 className="text-3xl mt-[10%] font-semibold text-slate-400">
           Products
         </h1>
