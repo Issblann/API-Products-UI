@@ -6,16 +6,16 @@ Backend Steps
 1. Pull image docker.
 2. Select PORT, default 8080. docker run -p 8080:8080 'name image'
 
-Routes: 
-Register user: http://localhost:8080/auth/register
-Login user: http://localhost:8080/auth/login
-Products: http://localhost:8080/api/products?page={page}pageSize={pageSize}
+Routes: <br/>
+Register user: http://localhost:8080/auth/register <br/>
+Login user: http://localhost:8080/auth/login <br/>
+Products: http://localhost:8080/api/products?page={page}pageSize={pageSize} <br/>
 
 Frontend with pagination and form validation.
 
-Frontend Steps
-1.npm install
-2.npm run dev
+Frontend Steps <br/>
+1. npm install <br/>
+2. npm run dev <br/>
 
 Frontend Images
 
