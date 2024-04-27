@@ -11,22 +11,24 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true,
   })
 );
+const port = envs.PORT;
+const uri = envs.MONGO_URI;
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 const server = http.createServer(app);
 
-server.listen(8080, () => {
-  console.log('Server is running on http://localhost:8080');
+server.listen(port, () => {
+  console.log(`Server is running on ${port}`);
 });
 
 mongoose.Promise = Promise;
 
-mongoose.connect(envs.MONGO_URL);
+mongoose.connect(uri);
 mongoose.connection.on('error', (error: Error) => console.log(error));
 
 console.log('Connected to MongoDB');
